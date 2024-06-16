@@ -59,7 +59,7 @@ console.log(result1); // Вывод: 24
 //     Текст ошибки: "В getUniqArray был передан невалидный параметр. Аргумент arr
 // должен быть массивом чисел".
 function  getUniqArray(arr){
-    if(arr.every(item => typeof item === 'number')){
+    if(arr.every(item => typeof item === 'number' || isNaN(item))){
         return Array.from(new Set(arr))
     } else return "В getUniqArray был передан невалидный параметр. Аргумент arr должен быть массивом чисел"
 }
