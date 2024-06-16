@@ -170,33 +170,24 @@ function baz(callback) {
     }, Math.random() * 100);
 }
 
-function fooPromise(){
+let returnPromise = (func) => {
     return new Promise(resolve => {
-       foo(arg => {
-           console.log(arg);
-           resolve()
-       })
-    })
-}
-function barPromise(){
-    return new Promise(resolve => {
-        bar(arg => {
-            console.log(arg);
-            resolve()
-        })
-    })
-}
-function bazPromise(){
-    return new Promise(resolve => {
-        baz(arg => {
-            console.log(arg);
-            resolve()
+        func(arg => {
+            resolve(arg)
         })
     })
 }
 
-Promise.resolve().then(fooPromise).then(barPromise).then(bazPromise)
 
+let ABC = () => {
+    return Promise.all([
+        returnPromise(foo),
+        returnPromise(bar),
+        returnPromise(baz)
+    ]).then(result => result.forEach(item => console.log(item)))
+}
+
+ABC()
 
 ///////////////
 // todo Объяснить код, рассказать какие консоли и в какой последовательности будут, а затем переписать его на промисы
